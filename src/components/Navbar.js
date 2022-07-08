@@ -4,14 +4,9 @@ import SearchBar from './SearchBar'
 
 const Navbar = ({ getData }) => {
   return (
-    <Box bgColor='#5b58ff' >
+    <Box bgColor='#524fec' boxShadow='0px 3px 9px 2px #364154' >
       <Box maxW='90%' m='0 auto' p='25px 0px'>
-        <Box
-          display='flex'
-          alignItems='center'
-          position='relative'
-          maxW='200px'
-        >
+        <Box position='relative'>
           <SearchBar getData={getData} />
         </Box>
       </Box>

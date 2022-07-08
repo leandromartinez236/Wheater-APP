@@ -5,7 +5,6 @@ import Cards from './Cards'
 
 const Home = () => {
   const [data, setData] = useState([])
-  // console.log(data);
   const getData = (city) => {
     const apiKey = 'c540d1f633d1e86553bf46d84aafd613'
     fetch(
@@ -14,7 +13,6 @@ const Home = () => {
       .then((res) => res.json())
       .then((response) => {
         if (response.main !== undefined) {
-          // console.log({ response: response });
           const { country } = response?.sys
           const { speed } = response?.wind
           const { temp_max, temp_min, temp, humidity } = response?.main
@@ -29,17 +27,20 @@ const Home = () => {
             tempMax: Math.round(temp_max),
             tempMin: Math.round(temp_min),
           };
-          console.log(ciudad);
-          setData((oldCities) => [ciudad, ...oldCities]);
+          setData((oldCities) => [...oldCities, ciudad]);
         } else {
           alert("Ciudad no encontrada");
         }
       });
   }
+  const deleteCard = (id) => {
+    setData((oldCities) => oldCities.filter((c) => c.id !== id));
+  }
+
   return (
     <Box>
       <Navbar getData={getData} />
-      <Cards data={data} />
+      <Cards data={data} deleteCard={deleteCard} />
     </Box>
   )
 }
