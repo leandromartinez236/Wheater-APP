@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import { Box } from '@chakra-ui/react'
 import Navbar from '../components/Navbar'
 import Cards from './Cards'
+import cielo from '../assets/images/cielo-2.jpg'
+
 
 const Home = () => {
   const [data, setData] = useState([])
+  const [cityNotFound, setCityNotFound] = useState(false)
   const getData = (city) => {
     const apiKey = 'c540d1f633d1e86553bf46d84aafd613'
     fetch(
@@ -29,17 +32,19 @@ const Home = () => {
           };
           setData((oldCities) => [...oldCities, ciudad]);
         } else {
-          alert("Ciudad no encontrada");
+          setCityNotFound(true)
+          setTimeout(() => {
+            setCityNotFound(false)
+          }, 1500);
         }
       });
   }
   const deleteCard = (id) => {
     setData((oldCities) => oldCities.filter((c) => c.id !== id));
   }
-
   return (
-    <Box>
-      <Navbar getData={getData} />
+    <Box bgImage={cielo} bgPosition='bottom center' w='100%' bgRepeat='no-repeat' bgSize='cover' h='100vh'>
+      <Navbar notFound={cityNotFound} getData={getData} />
       <Cards data={data} deleteCard={deleteCard} />
     </Box>
   )
